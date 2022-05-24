@@ -1,0 +1,39 @@
+<!-- Developer: Alex Ridgeley -->
+<!-- Just a bit of XMLHttpRequest Practice -->
+<!-- March 16, 2022 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High or Low</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>High or Low - Guess the card!</h1>
+      </header>
+
+      <main id="main">
+        <div id="menu">
+          <button id="get-new-deck">Start / Reset</button>
+          <div class="score">Cards Drawn:<span id="counter"> 0</span></div>
+          <div class="score">
+            High Score:<span id="high-score" value="0"> 0</span>
+          </div>
+        </div>
+
+        <div id="card"></div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

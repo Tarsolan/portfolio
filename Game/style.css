@@ -1,0 +1,113 @@
+/* Whole Body Stuff */
+body {
+  min-width: 645px;
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.container {
+  background-color: grey;
+  min-height: 780px;
+  border: 3px solid black;
+}
+
+/* Top of Page & Menu */
+
+header {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#menu {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #3a7cde;
+  border: 2px solid #ffb800;
+  border-radius: 8px;
+  align-items: center;
+  margin: auto 30px;
+}
+
+#menu div {
+  font-size: 1.75em;
+}
+
+#get-new-deck {
+  color: white;
+  margin-top: 1rem;
+  font-size: 0.9em;
+}
+
+/* Game Itself */
+
+#card {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.card-pic,
+#next-card {
+  grid-row: span 2;
+  text-align: center;
+}
+
+#card button {
+  background-color: #3a7cde;
+  color: white;
+  border: 2px solid #ffb800;
+  transition: 0.2s;
+}
+
+#card button:hover {
+  background-color: #ffb800;
+  transition: 0.2s;
+}
+
+/* End Results */
+
+#result {
+  margin: 20px;
+  font-size: 32pt;
+  text-align: center;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.wrong {
+  background-color: red;
+  color: white;
+}
+
+.correct {
+  background-color: green;
+  color: white;
+}
+
+.tie {
+  background-color: #ffb800;
+  color: white;
+}
+
+/* Responsive Stuff */
+@media only screen and (max-width: 840px) {
+  #card {
+    grid-template-columns: 1fr 1fr;
+  }
+  .card-pic,
+  #next-card {
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .score {
+    display: none;
+  }
+}
