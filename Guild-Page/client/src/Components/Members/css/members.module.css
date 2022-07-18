@@ -1,0 +1,59 @@
+#memberContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  margin: 3% 12.5%;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 2%;
+  background-color: rgba(53, 101, 42, 0.8);
+}
+
+#memberHead {
+  grid-column: span 3;
+  text-align: center;
+  color: white;
+  font-size: 48px;
+}
+
+.memberInfo {
+  transition: all 0.2s;
+  display: grid;
+  padding: 2%;
+  margin: auto;
+  width: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 0.1fr;
+  /* background-color: rgba(53, 101, 42, 0.2); */
+  gap: 12px;
+  column-gap: 32px;
+  box-shadow: 4px 8px 4px rgba(0, 0, 0, 0.25);
+}
+
+.memberInfo img {
+  grid-row: span 3;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  /* height: 232px;
+    width: 216px; */
+}
+
+.memberInfo:hover {
+  transform: scale(1.1);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.memberName {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.memberTitle {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+}
