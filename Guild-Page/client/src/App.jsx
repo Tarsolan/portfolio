@@ -1,12 +1,5 @@
 import "./App.css";
-import {
-  toast,
-  ToastContainer,
-  Slide,
-  Zoom,
-  Flip,
-  Bounce,
-} from "react-toastify";
+import { toast, ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "./Components/General/Navigation";
 import Members from "./Components/Members/Members";
@@ -16,6 +9,8 @@ import NewMission from "./Components/Missions/NewMission";
 // import SideNav from "./Components/General/SideNav";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
+//import useFetch from "./Hooks/useFetch";
+import usePagination from "./Hooks/usePagination";
 import ClientLogin from "./Components/Account-Management/Clients/ClientLogin";
 import MemberInfo from "./Components/Members/MemberInfo";
 import Footer from "./Components/General/Footer";
@@ -26,10 +21,11 @@ import EditMember from "./Components/Account-Management/Members/EditMember";
 import ClientDisplay from "./Components/Account-Management/Clients/ClientDisplay";
 import CreateClient from "./Components/Account-Management/Clients/CreateClient";
 import EditClient from "./Components/Account-Management/Clients/EditClient";
+import MissionDetail from "./Components/Missions/MissionDetail";
 
 function App() {
   const [members, setMembers] = useState([]); // Member List
-  const [missions, setMissions] = useState(false); // Mission List
+  const [missions, setMissions] = useState([]); // Mission List
   // const [clients, setClients] = useState(false); // Client List - no longer stored client-side
   const [races, setRaces] = useState(false);
   const [ranks, setRanks] = useState(false);
@@ -39,6 +35,7 @@ function App() {
   const [currentClient, setCurrentClient] = useState(false); // Stores info on currently logged in client
   const [currentMemberID, setCurrentMemberID] = useState(false); // Stores info on currently logged in member
   const [selectedMemberID, setSelectedMemberID] = useState(false); // Stores info on currently selected member (for info page)
+  const [selectedMissionID, setSelectedMissionID] = useState(false); // Stores info on currently selected mission (for info page)
 
   useEffect(() => {
     getMembers();
@@ -52,7 +49,7 @@ function App() {
     if (type === "info") {
       toast.info(message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -63,7 +60,7 @@ function App() {
     } else if (type === "error") {
       toast.error(message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -74,7 +71,7 @@ function App() {
     } else if (type === "success") {
       toast.success(message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -93,6 +90,11 @@ function App() {
   const selectedMember = useMemo(
     () => members.find((member) => member.member_id === selectedMemberID),
     [members, selectedMemberID]
+  );
+
+  const selectedMission = useMemo(
+    () => missions.find((mission) => mission.mission_num === selectedMissionID),
+    [missions, selectedMissionID]
   );
 
   const getRaces = async () => {
@@ -116,12 +118,12 @@ function App() {
     setSpecializations(data);
   };
 
-  const getMember = async (id) => {
-    const res = await fetch(`http://localhost:3001/members/${id}`);
-    const data = await res.json();
+  // const getMember = async (id) => {
+  //   const res = await fetch(`http://localhost:3001/members/${id}`);
+  //   const data = await res.json();
 
-    return data;
-  };
+  //   return data;
+  // };
 
   const getMembers = async () => {
     const res = await fetch("http://localhost:3001/members");
@@ -166,37 +168,33 @@ function App() {
   };
 
   const addMember = async (member, specs) => {
-    const res = await fetch("http://localhost:3001/register/member", {
+    await fetch("http://localhost:3001/register/member", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(member),
     });
-    const data = await res.json();
 
-    const resSpec = await fetch("http://localhost:3001/register/member/spec", {
+    await fetch("http://localhost:3001/register/member/spec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(specs),
     });
-    const dataSpec = await resSpec.json();
 
     setTimeout(() => getMembers(), 1000);
   };
 
   const editMember = async (member, specs) => {
-    const res = await fetch("http://localhost:3001/members/edit", {
+    await fetch("http://localhost:3001/members/edit", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(member),
     });
-    const data = await res.json();
 
-    const resSpec = await fetch("http://localhost:3001/members/edit/specs", {
+    await fetch("http://localhost:3001/members/edit/specs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(specs),
     });
-    const dataSpec = await resSpec.json();
 
     setTimeout(() => getMembers(), 1000);
   };
@@ -235,26 +233,28 @@ function App() {
     setClientLoggedIn(false);
   };
 
-  const handleSelect = (member) => {
+  const handleSelectMember = (member) => {
     setSelectedMemberID(member.member_id);
   };
 
+  const handleSelectMission = (mission) => {
+    setSelectedMissionID(mission.mission_num);
+  };
+
   const createClient = async (client) => {
-    const res = await fetch("http://localhost:3001/register/client", {
+    await fetch("http://localhost:3001/register/client", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(client),
     });
-    const data = res.json();
   };
 
   const editClient = async (client) => {
-    const res = await fetch("http://localhost:3001/clients/edit", {
+    await fetch("http://localhost:3001/clients/edit", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(client),
     });
-    const data = await res.json();
   };
 
   return (
@@ -265,6 +265,7 @@ function App() {
           logOutClient={clientLogout}
           loginCheckMember={memberLoggedIn}
           logOutMember={memberLogout}
+          toast={infoToast}
         />
       </header>
 
@@ -275,7 +276,13 @@ function App() {
           <Route path="/" element={<About />}></Route>
           <Route
             path="/members"
-            element={<Members members={members} handleSelect={handleSelect} />}
+            element={
+              <Members
+                members={members}
+                handleSelect={handleSelectMember}
+                pagination={usePagination}
+              />
+            }
           ></Route>
           <Route
             path="/members/info/:name"
@@ -284,8 +291,17 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route
             path="/missions"
-            element={<MissionBoard missions={missions} />}
-          ></Route>
+            element={
+              <MissionBoard
+                missions={missions}
+                handleSelect={handleSelectMission}
+              />
+            }
+          />
+          <Route
+            path="/missions/info/:id"
+            element={<MissionDetail mission={selectedMission} />}
+          />
           {clientLoggedIn ? (
             <Route
               path="/createMission"

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import usePagination from "../../Hooks/usePagination";
 import styles from "./css/members.module.css";
 
 const Main = ({ members, handleSelect }) => {
@@ -11,11 +12,17 @@ const Main = ({ members, handleSelect }) => {
     goToMemberPage(member.full_name);
   };
 
+  const paginate = usePagination(members, 6);
+  console.log(paginate);
+
   return (
     <div id={styles.memberContainer}>
-      <h2 id={styles.memberHead}>Member List</h2>
+      <div id={styles.memberHead}>
+        <span onClick={paginate.prev}>Left Arrow</span> <h2>Member List</h2>
+        <span onClick={paginate.next}>Right Arrow</span>
+      </div>
       {members
-        ? members.map((member) => {
+        ? paginate.currentData().map((member) => {
             const { full_name, title, race, desc, rank_name, member_id } =
               member;
             return (

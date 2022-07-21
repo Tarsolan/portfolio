@@ -11,8 +11,14 @@
 
 #memberHead {
   grid-column: span 3;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   text-align: center;
   color: white;
+}
+
+#memberHead h2 {
   font-size: 48px;
 }
 

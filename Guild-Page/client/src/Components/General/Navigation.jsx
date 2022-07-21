@@ -9,6 +9,7 @@ const Navigation = ({
   logOutClient,
   loginCheckMember,
   logOutMember,
+  toast,
 }) => {
   // const [login, setLogin] = useState(false);
 
@@ -68,7 +69,7 @@ const Navigation = ({
                     as={NavLink}
                     to="/account/client/login"
                     onClick={() => {
-                      alert("Please log in before creating a mission.");
+                      toast("Please log in before creating a mission.", "info");
                     }}
                   >
                     Create new Mission
