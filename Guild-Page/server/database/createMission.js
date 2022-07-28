@@ -17,4 +17,15 @@ const addMission = async (body) => {
   return res.rows;
 };
 
-module.exports = { addMission };
+const editMission = async (body) => {
+  const { mission_num, newName, newDesc, newPay, newDate } = body;
+  let sql = `UPDATE part2.mission
+	SET job_name='${newName}', job_description='${newDesc}', payout='${newPay}', deadline_date='${newDate}'
+	WHERE mission_num=${mission_num};`;
+
+  let res = await db.query(sql);
+
+  return res.rows;
+};
+
+module.exports = { addMission, editMission };

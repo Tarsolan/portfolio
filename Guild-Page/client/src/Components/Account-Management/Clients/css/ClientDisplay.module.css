@@ -63,6 +63,10 @@
   padding: 10px;
 }
 
+.displayMission:hover {
+  cursor: pointer;
+}
+
 /* .missionList li {
   border: 1px solid black;
 } */

@@ -1,0 +1,147 @@
+#missionDetail {
+  background: url("../../../pictures/cork.jpg");
+  background-size: auto;
+  margin: 3% 20%;
+  border: 5px solid black;
+  border-radius: 8px;
+  background-color: #9c6f3e;
+  padding: 1%;
+}
+
+#missionPage {
+  background: url(../../../pictures/old_paper_1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 2% 3%;
+  border: 1px solid #000000;
+  border-radius: 0px 45px;
+  padding: 2%;
+  font-family: "NSimSun";
+}
+
+.missionPin {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  /* margin: auto 50%; */
+}
+
+.detailTop h1 {
+  font-size: 64px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.detailRow {
+  display: flex;
+  font-size: 24px;
+  justify-content: space-between;
+  margin: auto 12.5%;
+}
+
+.detailMid h2 {
+  font-family: "NSimSun";
+  font-size: 48px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.description {
+  font-size: 24px;
+  height: 25vh;
+}
+
+.detailBot {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 1fr 0.5fr;
+}
+
+.detailPayout {
+  font-size: 32px;
+}
+
+.deadline {
+  grid-row: 3;
+}
+
+.date {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.missionNumContainer,
+.signatureContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  text-align: right;
+  grid-column: 2;
+  align-items: center;
+}
+
+.missionNumContainer {
+  text-align: center;
+}
+
+.signatureContainer {
+  grid-row: 3/4;
+}
+
+.missionNum,
+.signature {
+  border-top: 1px solid black;
+}
+
+#signature {
+  font-size: 48px;
+  font-family: "Vujahday Script", cursive;
+}
+
+#missionNum {
+  font-size: 48px;
+}
+
+.detailButtons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.detailButtons button {
+  background: #cd1e1e;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 24px;
+}
+
+.missionComplete {
+  align-self: center;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  height: 300px;
+  width: 400px;
+}
+
+.reportTitle {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  text-decoration: none;
+}
+
+.reportContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.missionReport {
+  border: 1px dashed black;
+  padding: 12px;
+}
+
+.missionReport h3 {
+  text-decoration: underline;
+}

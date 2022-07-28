@@ -8,10 +8,10 @@ body,
   height: 100vh;
 }
 
-html,
+/* html,
 #root {
-  background: rgba(247, 240, 230, 0.8);
-}
+  background: rgb(2, 184, 138);
+} */
 
 #root {
   display: flex;
@@ -25,6 +25,10 @@ h2 {
   font-size: 48px;
 }
 
+/* main,
+footer {
+  z-index: 1;
+} */
 /* Bootstrap Navigation */
 
 .navbar-guild {

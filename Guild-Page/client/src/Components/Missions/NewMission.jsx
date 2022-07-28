@@ -9,7 +9,7 @@ const NewMission = ({ onAdd, client }) => {
   const [missionPayout, setMissionPayout] = useState(0);
 
   const navigate = useNavigate();
-  const goToMissionBoard = () => navigate("/missions");
+  const goToMissionBoard = () => navigate("/missions/all");
 
   const submitMissionData = (e) => {
     e.preventDefault();

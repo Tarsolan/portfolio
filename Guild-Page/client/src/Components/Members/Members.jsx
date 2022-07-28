@@ -13,7 +13,6 @@ const Main = ({ members, handleSelect }) => {
   };
 
   const paginate = usePagination(members, 6);
-  console.log(paginate);
 
   return (
     <div id={styles.memberContainer}>

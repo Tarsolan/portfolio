@@ -22,6 +22,9 @@ import ClientDisplay from "./Components/Account-Management/Clients/ClientDisplay
 import CreateClient from "./Components/Account-Management/Clients/CreateClient";
 import EditClient from "./Components/Account-Management/Clients/EditClient";
 import MissionDetail from "./Components/Missions/MissionDetail";
+import Background from "./Components/General/Background";
+import NewReport from "./Components/Missions/NewReport";
+import EditMission from "./Components/Missions/EditMission";
 
 function App() {
   const [members, setMembers] = useState([]); // Member List
@@ -255,10 +258,23 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(client),
     });
+
+    getMissions();
+  };
+
+  const editMission = async (mission) => {
+    await fetch("http://localhost:3001/missions/edit", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(mission),
+    });
+
+    getMissions();
   };
 
   return (
     <Router>
+      <Background />
       <header>
         <Navigation
           loginCheckClient={clientLoggedIn}
@@ -290,7 +306,7 @@ function App() {
           />
           <Route path="/about" element={<About />}></Route>
           <Route
-            path="/missions"
+            path="/missions/all"
             element={
               <MissionBoard
                 missions={missions}
@@ -300,11 +316,32 @@ function App() {
           />
           <Route
             path="/missions/info/:id"
-            element={<MissionDetail mission={selectedMission} />}
+            element={
+              <MissionDetail
+                mission={selectedMission}
+                members={members}
+                loginCheck={memberLoggedIn}
+                toast={infoToast}
+                clientCheck={clientLoggedIn}
+                clientInfo={currentClient}
+              />
+            }
           />
+
+          <Route
+            path="missions/info/:id/edit"
+            element={
+              <EditMission
+                mission={selectedMission}
+                toast={infoToast}
+                onEdit={editMission}
+              />
+            }
+          />
+
           {clientLoggedIn ? (
             <Route
-              path="/createMission"
+              path="/missions/create"
               element={
                 <NewMission
                   onAdd={addMission}
@@ -315,7 +352,7 @@ function App() {
             ></Route>
           ) : (
             <Route
-              path="/createMission"
+              path="/missions/create"
               element={
                 <ClientLogin
                   clientLogin={clientLogin}
@@ -324,7 +361,27 @@ function App() {
                   toast={infoToast}
                 />
               }
-            ></Route>
+            />
+          )}
+          {memberLoggedIn ? (
+            <Route
+              path="/missions/info/:id/reports/new"
+              element={<NewReport />}
+            />
+          ) : (
+            <Route
+              path="/missions/info/:id/reports/new"
+              element={
+                <MemberLogin
+                  memberLogin={memberLogin}
+                  members={members}
+                  setMember={setCurrentMemberID}
+                  setSelect={setSelectedMemberID}
+                  setLogin={setMemberLoggedIn}
+                  toast={infoToast}
+                />
+              }
+            />
           )}
           <Route
             path="/account/client/login"
@@ -398,7 +455,11 @@ function App() {
           <Route
             path="/account/client/info"
             element={
-              <ClientDisplay client={currentClient} missionInfo={missions} />
+              <ClientDisplay
+                client={currentClient}
+                missionInfo={missions}
+                handleSelect={setSelectedMissionID}
+              />
             }
           />
           <Route

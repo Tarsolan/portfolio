@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import usePagination from "../../Hooks/usePagination";
 import pushPin from "../../pictures/push_pin.png";
 import styles from "./css/MissionBoard.module.css";
+import stamp from "../../pictures/complete_2.png";
 
 const MissionBoard = ({ missions, handleSelect }) => {
-  const paginate = usePagination(missions, 3);
+  const paginate = usePagination(missions, 6); // THE SECOND NUMBER HERE CONTROLS HOW MANY MISSIONS ARE DISPLAYED PER PAGE
   const navigate = useNavigate();
   const goToMissionPage = (num) => navigate(`/missions/info/${num}`);
 
@@ -23,9 +24,9 @@ const MissionBoard = ({ missions, handleSelect }) => {
               <button
                 key={page}
                 onClick={(e) => paginate.jump(e.target.value)}
-                value={page}
+                value={page + 1}
               >
-                {page}
+                {page + 1}
               </button>
             );
           })}
@@ -35,6 +36,7 @@ const MissionBoard = ({ missions, handleSelect }) => {
         {missions
           ? paginate.currentData().map((mission) => {
               const {
+                complete,
                 mission_num,
                 job_name,
                 job_description,
@@ -60,6 +62,13 @@ const MissionBoard = ({ missions, handleSelect }) => {
                   </div>
 
                   <div className={styles.missionDesc}>{job_description}</div>
+                  {complete && (
+                    <img
+                      src={stamp}
+                      alt="Completed mission"
+                      className={styles.missionComplete}
+                    />
+                  )}
 
                   <div className={styles.missionBottom}>
                     <div>Mission No: {mission_num}</div>
@@ -67,7 +76,7 @@ const MissionBoard = ({ missions, handleSelect }) => {
                       <span>Deadline:</span>
                       <span>{date}</span>
                     </div>
-                    <div className={styles.missionPayout}>{payout}</div>
+                    <div className={styles.missionPayout}>{payout} rocks</div>
                   </div>
                 </div>
               );

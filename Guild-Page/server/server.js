@@ -3,6 +3,9 @@ const app = express();
 const port = 3001;
 global.DEBUG = true;
 
+// MongoUsername: tarsolan
+// MongoPassword: X9vQdFKolfkrruNr
+
 app.use(express.json());
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");

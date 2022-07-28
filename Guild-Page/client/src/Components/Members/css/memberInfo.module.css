@@ -16,7 +16,9 @@
   display: grid;
   padding: 2%;
   grid-template-columns: 0.5fr 1fr;
-  background-color: rgba(251, 213, 95, 0.2);
+  background-color: rgb(53, 101, 42);
+  color: beige;
+  border-radius: 16px 16px 0px 0px;
   gap: 12px;
   column-gap: 32px;
   align-items: center;
@@ -64,8 +66,10 @@
 
 .infoDesc {
   padding: 1%;
-  background-color: rgba(53, 101, 42, 0.2);
+  background-color: rgb(25, 56, 18);
+  border-radius: 0px 0px 16px 16px;
   border-top: 2px solid black;
+  color: beige;
 }
 
 .memberRank {

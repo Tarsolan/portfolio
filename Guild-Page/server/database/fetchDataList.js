@@ -43,11 +43,22 @@ WHERE member_id = ${id}`;
 };
 
 const getMissions = async () => {
-  let missionQuery = `SELECT mission_num, job_name, job_description, payout, organization, deadline_date  FROM part2.mission
+  let missionQuery = `SELECT mission_num, job_name, job_description, payout, first_name ||' '|| last_name contact_name, organization, deadline_date, complete  FROM part2.mission
     JOIN part2.client USING (client_id)
     ORDER BY mission_num ASC`;
 
   let res = await db.query(missionQuery);
+
+  return res.rows;
+};
+
+const getMissionReports = async (id) => {
+  let sql = `SELECT report_id, member_id, first_name ||' '|| last_name AS name, mission_num, report_details FROM part2.mission_report
+  JOIN part2.mission USING (mission_num)
+  JOIN part2.member USING (member_id)
+  WHERE mission_num = ${id}`;
+
+  let res = await db.query(sql);
 
   return res.rows;
 };
@@ -111,6 +122,7 @@ module.exports = {
   getMember,
   getMembers,
   getMissions,
+  getMissionReports,
   getClients,
   getClientOrgNames,
   getMemberSpec,

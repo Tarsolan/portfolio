@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./css/ClientDisplay.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const ClientDisplay = ({ client, missionInfo }) => {
+const ClientDisplay = ({ client, missionInfo, handleSelect }) => {
   const {
     client_id,
     status,
@@ -18,6 +18,12 @@ const ClientDisplay = ({ client, missionInfo }) => {
 
   const navigate = useNavigate();
   const goToEditDetails = () => navigate("/account/client/info/edit");
+  const goToMissionPage = (num) => navigate(`/missions/info/${num}`);
+
+  const missionSelect = (num) => {
+    handleSelect(num);
+    goToMissionPage(num);
+  };
 
   const missionNames = (missionInfo) => {
     var missionArr = [];
@@ -30,12 +36,17 @@ const ClientDisplay = ({ client, missionInfo }) => {
     });
     var missionNames = missionArr.map((mission) => {
       return (
-        <span key={mission.mission_num}>
-          <h4>
-            {mission.mission_num} - {mission.job_name}
-          </h4>
-          <p>{mission.job_description}</p>
-        </span>
+        <div
+          onClick={() => missionSelect(mission.mission_num)}
+          className={styles.displayMission}
+        >
+          <span key={mission.mission_num}>
+            <h4>
+              {mission.mission_num} - {mission.job_name}
+            </h4>
+            <p>{mission.job_description}</p>
+          </span>
+        </div>
       );
     });
     return missionNames;

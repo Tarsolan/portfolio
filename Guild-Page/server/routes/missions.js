@@ -1,22 +1,34 @@
 const express = require("express");
 const router = express.Router();
 
-const { addMission } = require("../database/createMission");
-const { getMissions } = require("../database/fetchDataList");
+const { addMission, editMission } = require("../database/createMission");
+const { getMissions, getMissionReports } = require("../database/fetchDataList");
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   DEBUG && console.log(req.url);
-  getMissions()
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
+  var resMiss = await getMissions();
+  // console.log(resMiss);
+  for (miss of resMiss) {
+    console.log("mission num", miss.mission_num);
+    var resMisRep = await getMissionReports(miss.mission_num);
+    console.log(miss.mission_num, resMisRep);
+    if (resMisRep === undefined) {
+      miss.reports = [];
+    } else {
+      miss.reports = resMisRep;
+    }
+  }
+
+  res.status(200).send(resMiss);
 });
 
 router.post("/new", async (req, res) => {
   let response = await addMission(req.body);
+  res.status(200).send(response);
+});
+
+router.put("/edit", async (req, res) => {
+  let response = await editMission(req.body);
   res.status(200).send(response);
 });
 
