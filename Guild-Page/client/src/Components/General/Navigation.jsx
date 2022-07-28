@@ -27,8 +27,6 @@ const Navigation = ({
     logOutClient();
   };
 
-  // if (loginCheckClient || loginCheckMember) setLogin(true);
-
   return (
     <nav>
       <Navbar bg="custom" expand="xl" variant="guild">
@@ -56,12 +54,13 @@ const Navigation = ({
                 id="basic-nav-dropdown"
                 menuVariant="dark"
               >
-                <NavDropdown.Item as={NavLink} to="/missions">
+                <NavDropdown.Item as={NavLink} to="/missions/all">
                   Mission Board
                 </NavDropdown.Item>
+
                 <NavDropdown.Divider />
                 {loginCheckClient ? (
-                  <NavDropdown.Item as={NavLink} to="/createMission">
+                  <NavDropdown.Item as={NavLink} to="/missions/create">
                     Create new Mission
                   </NavDropdown.Item>
                 ) : (
