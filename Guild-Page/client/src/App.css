@@ -6,6 +6,10 @@ html,
 body,
 #root {
   height: 100vh;
+  /* user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none; */
 }
 
 /* html,

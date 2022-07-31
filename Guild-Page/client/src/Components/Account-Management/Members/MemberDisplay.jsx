@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./css/memberDisplay.module.css";
 
-const MemberDisplay = ({ member }) => {
+const MemberDisplay = ({ member, selectMission }) => {
   const {
     member_id,
     full_name,
@@ -20,6 +20,7 @@ const MemberDisplay = ({ member }) => {
 
   const navigate = useNavigate();
   const goToEditDetails = () => navigate("/account/member/info/edit");
+  const goToMissionPage = (num) => navigate(`/missions/info/${num}`);
 
   // var missionNames = [];
   // for (let i = 0; i < missionDetails.length; i++) {
@@ -28,8 +29,21 @@ const MemberDisplay = ({ member }) => {
   //   console.log(missionNames);
   // }
 
+  const handleSelectMission = (num) => {
+    selectMission(num);
+    goToMissionPage(num);
+  };
+
   const missionNames = missionDetails.map((mission) => {
-    return <li key={mission.mission_num}>{mission.job_name}</li>;
+    return (
+      <li
+        className={styles.missionItem}
+        key={mission.mission_num}
+        onClick={() => handleSelectMission(mission.mission_num)}
+      >
+        {mission.job_name}
+      </li>
+    );
   });
 
   return (

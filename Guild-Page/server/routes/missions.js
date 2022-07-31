@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { addMission, editMission } = require("../database/createMission");
+const {
+  addMission,
+  editMission,
+  addReport,
+} = require("../database/createMission");
 const { getMissions, getMissionReports } = require("../database/fetchDataList");
 
 router.get("/", async (req, res) => {
@@ -29,6 +33,11 @@ router.post("/new", async (req, res) => {
 
 router.put("/edit", async (req, res) => {
   let response = await editMission(req.body);
+  res.status(200).send(response);
+});
+
+router.post("/reports/new", async (req, res) => {
+  let response = await addReport(req.body);
   res.status(200).send(response);
 });
 

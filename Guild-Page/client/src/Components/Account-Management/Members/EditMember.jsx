@@ -11,19 +11,7 @@ const EditMember = ({
   onEdit,
   toast,
 }) => {
-  const {
-    member_id,
-    full_name,
-    desc,
-    title,
-    join_date,
-    rank_name,
-    race,
-    spec,
-    image_url,
-    completed,
-    missionDetails,
-  } = member;
+  const { member_id, full_name, desc, title, rank_name, race, spec } = member;
 
   var name = full_name.split(" ");
 
@@ -81,6 +69,8 @@ const EditMember = ({
       case 4:
         setSpec = (e) => setSpec4(e);
         break;
+      default:
+        break;
     }
     return (
       <select
@@ -91,7 +81,7 @@ const EditMember = ({
         }}
       >
         <option default>
-          {spec[counter - 1] != undefined ? `${spec[counter - 1]}` : null}
+          {spec[counter - 1] !== undefined ? `${spec[counter - 1]}` : null}
         </option>
         <option value=""></option>;
         {specializations.map((spec) => {
@@ -107,7 +97,7 @@ const EditMember = ({
     e.preventDefault();
 
     // Validate what needs to be validated before saving anything!
-    members.map((member) => {
+    members.forEach((member) => {
       if (member.title === newTitle && newTitle !== title) {
         returnFlag = true;
       }
@@ -173,17 +163,7 @@ const EditMember = ({
       },
       { member_id, specArr }
     );
-
-    // Spec Data -- to member_spec
     toast("Member Account Edited.", "success");
-    // Switch logged in user
-    // var selectedMember = {};
-    // members.forEach((member) => {
-    //   if (member.title === newTitle) {
-    //     selectedMember = member;
-    //   }
-    // });
-    // setMember(selectedMember);
 
     goToAccountDetail();
   };

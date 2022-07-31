@@ -272,6 +272,16 @@ function App() {
     getMissions();
   };
 
+  const addMissionReport = async (report) => {
+    await fetch("http://localhost:3001/missions/reports/new", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(report),
+    });
+
+    getMissions();
+  };
+
   return (
     <Router>
       <Background />
@@ -366,7 +376,14 @@ function App() {
           {memberLoggedIn ? (
             <Route
               path="/missions/info/:id/reports/new"
-              element={<NewReport />}
+              element={
+                <NewReport
+                  mission={selectedMission}
+                  member={currentMember}
+                  toast={infoToast}
+                  onPost={addMissionReport}
+                />
+              }
             />
           ) : (
             <Route
@@ -411,7 +428,10 @@ function App() {
             path="/account/member/info"
             element={
               memberLoggedIn ? (
-                <MemberDisplay member={currentMember} />
+                <MemberDisplay
+                  member={currentMember}
+                  selectMission={setSelectedMissionID}
+                />
               ) : (
                 <MemberLogin
                   memberLogin={memberLogin}

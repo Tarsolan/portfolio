@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import styles from "./css/NewMission.module.css";
 import { useNavigate } from "react-router-dom";
 
-const NewMission = ({ onAdd, client }) => {
+const NewMission = ({ onAdd, client, toast }) => {
   const [missionTitle, setMissionTitle] = useState("");
   const [missionDesc, setMissionDesc] = useState("");
   const [missionDeadline, setMissionDeadline] = useState("");
@@ -21,7 +21,7 @@ const NewMission = ({ onAdd, client }) => {
       missionDeadline,
       client_id,
     });
-    alert("Mission Created.");
+    toast("Mission Created.", "success");
     goToMissionBoard();
   };
 

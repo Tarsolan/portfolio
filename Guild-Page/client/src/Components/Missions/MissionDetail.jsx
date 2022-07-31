@@ -139,7 +139,7 @@ const MissionDetail = ({
             <button onClick={goToEditMission}>Edit Mission</button>
             <button onClick={goToFileReport}>File Report</button>
             <button onClick={() => setViewMission(!viewMission)}>
-              View Reports
+              {viewMission ? `View Reports` : `View Mission Details`}
             </button>
           </div>
         </div>

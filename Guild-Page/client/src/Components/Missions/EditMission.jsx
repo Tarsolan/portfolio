@@ -20,22 +20,26 @@ const EditMission = ({ mission, toast, onEdit }) => {
   const [newDesc, setNewDesc] = useState(job_description);
   const [newPay, setNewPay] = useState(payout);
   const [newDate, setNewDate] = useState(deadline_date);
+  const [status, setStatus] = useState(complete);
 
   const navigate = useNavigate();
   const goToMissionPage = (num) => navigate(`/missions/info/${num}`);
 
+  const updateStatus = (e) => {
+    e.preventDefault();
+    setStatus(!status);
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    var filterDescription = newDesc.replace(/'/g, "''");
-    var filterName = newName.replace(/'/g, "''");
-
     onEdit({
       mission_num,
-      newName: filterName,
-      newDesc: filterDescription,
+      newName,
+      newDesc,
       newPay,
       newDate,
+      status,
     });
 
     toast("Mission Edited.", "success");
@@ -128,7 +132,15 @@ const EditMission = ({ mission, toast, onEdit }) => {
             </div>
             <hr />
             <div className={styles.detailButtons}>
-              <button type="submit">Confirm Edits</button>
+              <button type="submit" className={styles.red}>
+                Confirm Edits
+              </button>
+              <button
+                onClick={(e) => updateStatus(e)}
+                className={!status ? `${styles.green}` : `${styles.red}`}
+              >
+                {!status ? `Flag as Complete` : `Flag as Incomplete`}
+              </button>
             </div>
           </form>
         </div>

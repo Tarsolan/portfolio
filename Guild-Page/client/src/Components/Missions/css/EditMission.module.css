@@ -109,13 +109,6 @@
   justify-content: space-evenly;
 }
 
-.detailButtons button {
-  background: #cd1e1e;
-  border-radius: 8px;
-  color: white;
-  padding: 8px 24px;
-}
-
 .missionComplete {
   align-self: center;
   position: absolute;
@@ -144,4 +137,18 @@
 
 .missionReport h3 {
   text-decoration: underline;
+}
+
+.red {
+  background: #cd1e1e;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 24px;
+}
+
+.green {
+  background-color: green;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 24px;
 }
