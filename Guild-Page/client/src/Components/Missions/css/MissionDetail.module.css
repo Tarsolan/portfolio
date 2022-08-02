@@ -142,10 +142,20 @@
 	padding: 12px;
 }
 
+.missionReport textarea {
+	width: 100%;
+}
+
 .missionReport h3 {
 	text-decoration: underline;
 }
 
-.missionReport h3:hover {
+.reportHead span:hover,
+.reportHead h3:hover {
 	cursor: pointer;
+}
+
+.reportHead {
+	display: flex;
+	justify-content: space-between;
 }

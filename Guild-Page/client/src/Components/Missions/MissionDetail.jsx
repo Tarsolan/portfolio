@@ -5,16 +5,19 @@ import pushPin from "../../pictures/push_pin.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MemberInfo from "../Members/MemberInfo";
+import Reports from "./Reports";
 
 const MissionDetail = ({
 	mission,
 	members,
 	handleSelectMem,
+	memberInfo,
 	loginCheck,
 	toast,
 	clientCheck,
 	clientInfo,
 	selectedMember,
+	onReportEdit,
 }) => {
 	const {
 		complete,
@@ -43,10 +46,13 @@ const MissionDetail = ({
 			<div className={styles.reportContainer}>
 				{reports.map((report) => {
 					return (
-						<div className={styles.missionReport}>
-							<h3 onClick={() => loadMem(report)}>{report.name}</h3>
-							<p>{report.report_details}</p>
-						</div>
+						<Reports
+							report={report}
+							loadMem={loadMem}
+							onReportEdit={onReportEdit}
+							member={memberInfo}
+							toast={toast}
+						/>
 					);
 				})}
 				;

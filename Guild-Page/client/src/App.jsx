@@ -25,6 +25,7 @@ import MissionDetail from "./Components/Missions/MissionDetail";
 import Background from "./Components/General/Background";
 import NewReport from "./Components/Missions/NewReport";
 import EditMission from "./Components/Missions/EditMission";
+import MembersInfo from "./Components/Members/MembersInfo";
 
 function App() {
 	const [members, setMembers] = useState([]); // Member List
@@ -200,6 +201,7 @@ function App() {
 		});
 
 		setTimeout(() => getMembers(), 1000);
+		getMissions();
 	};
 
 	// Mission Stuff
@@ -282,6 +284,16 @@ function App() {
 		getMissions();
 	};
 
+	const editMissionReport = async (details, id) => {
+		await fetch(`http://localhost:3001/missions/reports/edit/${id}`, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(details),
+		});
+
+		getMissions();
+	};
+
 	return (
 		<Router>
 			<Background />
@@ -311,8 +323,11 @@ function App() {
 						}
 					></Route>
 					<Route
-						path="/members/info/:name"
-						element={<MemberInfo member={selectedMember} />}
+						path="/members/info/:id"
+						// element={<MemberInfo member={selectedMember} />}
+						element={
+							<MembersInfo selectedMember={selectedMember} members={members} />
+						}
 					/>
 					<Route path="/about" element={<About />}></Route>
 					<Route
@@ -336,6 +351,8 @@ function App() {
 								clientInfo={currentClient}
 								handleSelectMem={handleSelectMember}
 								selectedMember={selectedMember}
+								onReportEdit={editMissionReport}
+								memberInfo={currentMemberID}
 							/>
 						}
 					/>
