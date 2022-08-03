@@ -1,57 +1,46 @@
 const db = require("./pgAdmin");
 
-// const addMember = async (body) => {
-//     const { firstName, lastName, password, raceID, title, description } = body;
-//     let newMember = `INSERT INTO part2.member(
-//       first_name, last_name, title, rank_id, race_id, description, password)
-//       VALUES ('${firstName}', '${lastName}', '${title}', 1, ${raceID}, '${description}', '${password}');`;
-
-//     let res = await db.query(newMember);
-
-//     return res.rows;
-//   };
-
 const editMember = async (body) => {
-  const {
-    member_id,
-    firstName,
-    lastName,
-    raceID,
-    newTitle,
-    filterDescription,
-    rankID,
-  } = body;
-  let editMem = `UPDATE part2.member
+	const {
+		member_id,
+		firstName,
+		lastName,
+		raceID,
+		newTitle,
+		filterDescription,
+		rankID,
+	} = body;
+	let editMem = `UPDATE part2.member
 	SET first_name='${firstName}', last_name='${lastName}', title='${newTitle}', rank_id=${rankID}, race_id=${raceID}, description='${filterDescription}'
 	WHERE member_id=${member_id};`;
 
-  try {
-    let res = await db.query(editMem);
+	try {
+		let res = await db.query(editMem);
 
-    return res.rows;
-  } catch (error) {
-    console.log(error);
-  }
+		return res.rows;
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const editMemberSpec = async (body) => {
-  const { member_id, specArr } = body;
-  let deleteSpec = `DELETE FROM part2.member_spec
+	const { member_id, specArr } = body;
+	let deleteSpec = `DELETE FROM part2.member_spec
   WHERE member_id=${member_id};`;
 
-  let res = await db.query(deleteSpec);
+	let res = await db.query(deleteSpec);
 
-  specArr.map(async (spec) => {
-    let editMemSpec = `INSERT INTO part2.member_spec(
+	specArr.map(async (spec) => {
+		let editMemSpec = `INSERT INTO part2.member_spec(
          spec_id, member_id)
          VALUES (${spec}, ${member_id});`;
 
-    console.log(spec);
-    let res = await db.query(editMemSpec);
-    return res.rows;
-  });
+		console.log(spec);
+		let res = await db.query(editMemSpec);
+		return res.rows;
+	});
 
-  return res.rows;
+	return res.rows;
 };
 
 // const addMemberSpecs = async (body) => {

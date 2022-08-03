@@ -25,493 +25,512 @@ import MissionDetail from "./Components/Missions/MissionDetail";
 import Background from "./Components/General/Background";
 import NewReport from "./Components/Missions/NewReport";
 import EditMission from "./Components/Missions/EditMission";
+import MembersInfo from "./Components/Members/MembersInfo";
 
 function App() {
-  const [members, setMembers] = useState([]); // Member List
-  const [missions, setMissions] = useState([]); // Mission List
-  // const [clients, setClients] = useState(false); // Client List - no longer stored client-side
-  const [races, setRaces] = useState(false);
-  const [ranks, setRanks] = useState(false);
-  const [specializations, setSpecializations] = useState(false);
-  const [clientLoggedIn, setClientLoggedIn] = useState(false); // True if client is logged in
-  const [memberLoggedIn, setMemberLoggedIn] = useState(false); // True if member is logged in
-  const [currentClient, setCurrentClient] = useState(false); // Stores info on currently logged in client
-  const [currentMemberID, setCurrentMemberID] = useState(false); // Stores info on currently logged in member
-  const [selectedMemberID, setSelectedMemberID] = useState(false); // Stores info on currently selected member (for info page)
-  const [selectedMissionID, setSelectedMissionID] = useState(false); // Stores info on currently selected mission (for info page)
+	const [members, setMembers] = useState([]); // Member List
+	const [missions, setMissions] = useState([]); // Mission List
+	// const [clients, setClients] = useState(false); // Client List - no longer stored client-side
+	const [races, setRaces] = useState(false);
+	const [ranks, setRanks] = useState(false);
+	const [specializations, setSpecializations] = useState(false);
+	const [clientLoggedIn, setClientLoggedIn] = useState(false); // True if client is logged in
+	const [memberLoggedIn, setMemberLoggedIn] = useState(false); // True if member is logged in
+	const [currentClient, setCurrentClient] = useState(false); // Stores info on currently logged in client
+	const [currentMemberID, setCurrentMemberID] = useState(false); // Stores info on currently logged in member
+	const [selectedMemberID, setSelectedMemberID] = useState(false); // Stores info on currently selected member (for info page)
+	const [selectedMissionID, setSelectedMissionID] = useState(false); // Stores info on currently selected mission (for info page)
 
-  useEffect(() => {
-    getMembers();
-    getMissions();
-    getRaces();
-    getSpecs();
-    getRanks();
-  }, []);
+	useEffect(() => {
+		getMembers();
+		getMissions();
+		getRaces();
+		getSpecs();
+		getRanks();
+	}, []);
 
-  const infoToast = (message, type = "info") => {
-    if (type === "info") {
-      toast.info(message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-      });
-    } else if (type === "error") {
-      toast.error(message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-      });
-    } else if (type === "success") {
-      toast.success(message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-      });
-    }
-  };
+	const infoToast = (message, type = "info") => {
+		if (type === "info") {
+			toast.info(message, {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				transition: Slide,
+			});
+		} else if (type === "error") {
+			toast.error(message, {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				transition: Slide,
+			});
+		} else if (type === "success") {
+			toast.success(message, {
+				position: "top-center",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				transition: Slide,
+			});
+		}
+	};
 
-  const currentMember = useMemo(
-    () => members.find((member) => member.member_id === currentMemberID),
-    [members, currentMemberID]
-  );
+	const currentMember = useMemo(
+		() => members.find((member) => member.member_id === currentMemberID),
+		[members, currentMemberID]
+	);
 
-  const selectedMember = useMemo(
-    () => members.find((member) => member.member_id === selectedMemberID),
-    [members, selectedMemberID]
-  );
+	const selectedMember = useMemo(
+		() => members.find((member) => member.member_id === selectedMemberID),
+		[members, selectedMemberID]
+	);
 
-  const selectedMission = useMemo(
-    () => missions.find((mission) => mission.mission_num === selectedMissionID),
-    [missions, selectedMissionID]
-  );
+	const selectedMission = useMemo(
+		() => missions.find((mission) => mission.mission_num === selectedMissionID),
+		[missions, selectedMissionID]
+	);
 
-  const getRaces = async () => {
-    const res = await fetch("http://localhost:3001/races");
-    const data = await res.json();
+	const getRaces = async () => {
+		const res = await fetch("http://localhost:3001/races");
+		const data = await res.json();
 
-    setRaces(data);
-  };
+		setRaces(data);
+	};
 
-  const getRanks = async () => {
-    const res = await fetch("http://localhost:3001/races/ranks");
-    const data = await res.json();
+	const getRanks = async () => {
+		const res = await fetch("http://localhost:3001/races/ranks");
+		const data = await res.json();
 
-    setRanks(data);
-  };
+		setRanks(data);
+	};
 
-  const getSpecs = async () => {
-    const res = await fetch("http://localhost:3001/specs");
-    const data = await res.json();
+	const getSpecs = async () => {
+		const res = await fetch("http://localhost:3001/specs");
+		const data = await res.json();
 
-    setSpecializations(data);
-  };
+		setSpecializations(data);
+	};
 
-  // const getMember = async (id) => {
-  //   const res = await fetch(`http://localhost:3001/members/${id}`);
-  //   const data = await res.json();
+	// const getMember = async (id) => {
+	//   const res = await fetch(`http://localhost:3001/members/${id}`);
+	//   const data = await res.json();
 
-  //   return data;
-  // };
+	//   return data;
+	// };
 
-  const getMembers = async () => {
-    const res = await fetch("http://localhost:3001/members");
-    const data = await res.json();
+	const getMembers = async () => {
+		const res = await fetch("http://localhost:3001/members");
+		const data = await res.json();
 
-    setMembers(data);
-  };
+		setMembers(data);
+	};
 
-  const getMissions = async () => {
-    const res = await fetch("http://localhost:3001/missions");
-    const data = await res.text();
+	const getMissions = async () => {
+		const res = await fetch("http://localhost:3001/missions");
+		const data = await res.text();
 
-    setMissions(JSON.parse(data));
-  };
+		setMissions(JSON.parse(data));
+	};
 
-  // const getClients = async () => {
-  //   const res = await fetch("http://localhost:3001/clients");
-  //   const data = await res.text();
+	// const getClients = async () => {
+	//   const res = await fetch("http://localhost:3001/clients");
+	//   const data = await res.text();
 
-  //   setClients(JSON.parse(data));
-  // };
+	//   setClients(JSON.parse(data));
+	// };
 
-  // Member Stuff
+	// Member Stuff
 
-  const memberLogin = async (member) => {
-    // Returns true if password is valid for given member
-    const res = await fetch("http://localhost:3001/members/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(member),
-    });
-    const data = await res.json();
-    return data;
-  };
+	const memberLogin = async (member) => {
+		// Returns true if password is valid for given member
+		const res = await fetch("http://localhost:3001/members/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(member),
+		});
+		const data = await res.json();
+		return data;
+	};
 
-  const memberLogout = () => {
-    infoToast(
-      `Logging you out, ${currentMember.full_name}. Please come again.`
-    );
-    setCurrentMemberID(false);
-    setMemberLoggedIn(false);
-  };
+	const memberLogout = () => {
+		infoToast(
+			`Logging you out, ${currentMember.full_name}. Please come again.`
+		);
+		setCurrentMemberID(false);
+		setMemberLoggedIn(false);
+	};
 
-  const addMember = async (member, specs) => {
-    await fetch("http://localhost:3001/register/member", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(member),
-    });
+	const addMember = async (member, specs) => {
+		await fetch("http://localhost:3001/register/member", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(member),
+		});
 
-    await fetch("http://localhost:3001/register/member/spec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(specs),
-    });
+		await fetch("http://localhost:3001/register/member/spec", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(specs),
+		});
 
-    setTimeout(() => getMembers(), 1000);
-  };
+		setTimeout(() => getMembers(), 1000);
+	};
 
-  const editMember = async (member, specs) => {
-    await fetch("http://localhost:3001/members/edit", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(member),
-    });
+	const editMember = async (member, specs) => {
+		await fetch("http://localhost:3001/members/edit", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(member),
+		});
 
-    await fetch("http://localhost:3001/members/edit/specs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(specs),
-    });
+		await fetch("http://localhost:3001/members/edit/specs", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(specs),
+		});
 
-    setTimeout(() => getMembers(), 1000);
-  };
+		setTimeout(() => getMembers(), 1000);
+		getMissions();
+	};
 
-  // Mission Stuff
+	// Mission Stuff
 
-  const addMission = async (mission) => {
-    console.log(mission);
-    const res = await fetch("http://localhost:3001/missions/new", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mission),
-    });
-    const data = res.text();
-    console.log(data);
-    getMissions();
-  };
+	const addMission = async (mission) => {
+		console.log(mission);
+		const res = await fetch("http://localhost:3001/missions/new", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(mission),
+		});
+		const data = res.text();
+		console.log(data);
+		getMissions();
+	};
 
-  // Client Stuff
+	// Client Stuff
 
-  const clientLogin = async (client) => {
-    const res = await fetch("http://localhost:3001/clients/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client),
-    });
-    const data = await res.json();
-    return data;
-  };
+	const clientLogin = async (client) => {
+		const res = await fetch("http://localhost:3001/clients/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(client),
+		});
+		const data = await res.json();
+		return data;
+	};
 
-  const clientLogout = () => {
-    infoToast(
-      `Logging you out, ${currentClient.organization}. Please come again.`
-    );
-    setCurrentClient(false);
-    setClientLoggedIn(false);
-  };
+	const clientLogout = () => {
+		infoToast(
+			`Logging you out, ${currentClient.organization}. Please come again.`
+		);
+		setCurrentClient(false);
+		setClientLoggedIn(false);
+	};
 
-  const handleSelectMember = (member) => {
-    setSelectedMemberID(member.member_id);
-  };
+	const handleSelectMember = (member) => {
+		setSelectedMemberID(member.member_id);
+	};
 
-  const handleSelectMission = (mission) => {
-    setSelectedMissionID(mission.mission_num);
-  };
+	const handleSelectMission = (mission) => {
+		setSelectedMissionID(mission.mission_num);
+	};
 
-  const createClient = async (client) => {
-    await fetch("http://localhost:3001/register/client", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client),
-    });
-  };
+	const createClient = async (client) => {
+		await fetch("http://localhost:3001/register/client", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(client),
+		});
+	};
 
-  const editClient = async (client) => {
-    await fetch("http://localhost:3001/clients/edit", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client),
-    });
+	const editClient = async (client) => {
+		await fetch("http://localhost:3001/clients/edit", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(client),
+		});
 
-    getMissions();
-  };
+		getMissions();
+	};
 
-  const editMission = async (mission) => {
-    await fetch("http://localhost:3001/missions/edit", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mission),
-    });
+	const editMission = async (mission) => {
+		await fetch("http://localhost:3001/missions/edit", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(mission),
+		});
 
-    getMissions();
-  };
+		getMissions();
+	};
 
-  const addMissionReport = async (report) => {
-    await fetch("http://localhost:3001/missions/reports/new", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(report),
-    });
+	const addMissionReport = async (report) => {
+		await fetch("http://localhost:3001/missions/reports/new", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(report),
+		});
 
-    getMissions();
-  };
+		getMissions();
+	};
 
-  return (
-    <Router>
-      <Background />
-      <header>
-        <Navigation
-          loginCheckClient={clientLoggedIn}
-          logOutClient={clientLogout}
-          loginCheckMember={memberLoggedIn}
-          logOutMember={memberLogout}
-          toast={infoToast}
-        />
-      </header>
+	const editMissionReport = async (details, id) => {
+		await fetch(`http://localhost:3001/missions/reports/edit/${id}`, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(details),
+		});
 
-      <main>
-        {/* <SideNav clientLogin={clientLogin} logout={clientLogout} /> */}
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<About />}></Route>
-          <Route
-            path="/members"
-            element={
-              <Members
-                members={members}
-                handleSelect={handleSelectMember}
-                pagination={usePagination}
-              />
-            }
-          ></Route>
-          <Route
-            path="/members/info/:name"
-            element={<MemberInfo member={selectedMember} />}
-          />
-          <Route path="/about" element={<About />}></Route>
-          <Route
-            path="/missions/all"
-            element={
-              <MissionBoard
-                missions={missions}
-                handleSelect={handleSelectMission}
-              />
-            }
-          />
-          <Route
-            path="/missions/info/:id"
-            element={
-              <MissionDetail
-                mission={selectedMission}
-                members={members}
-                loginCheck={memberLoggedIn}
-                toast={infoToast}
-                clientCheck={clientLoggedIn}
-                clientInfo={currentClient}
-              />
-            }
-          />
+		getMissions();
+	};
 
-          <Route
-            path="missions/info/:id/edit"
-            element={
-              <EditMission
-                mission={selectedMission}
-                toast={infoToast}
-                onEdit={editMission}
-              />
-            }
-          />
+	return (
+		<Router>
+			<Background />
+			<header>
+				<Navigation
+					loginCheckClient={clientLoggedIn}
+					logOutClient={clientLogout}
+					loginCheckMember={memberLoggedIn}
+					logOutMember={memberLogout}
+					toast={infoToast}
+				/>
+			</header>
 
-          {clientLoggedIn ? (
-            <Route
-              path="/missions/create"
-              element={
-                <NewMission
-                  onAdd={addMission}
-                  client={currentClient}
-                  toast={infoToast}
-                />
-              }
-            ></Route>
-          ) : (
-            <Route
-              path="/missions/create"
-              element={
-                <ClientLogin
-                  clientLogin={clientLogin}
-                  setLogin={setClientLoggedIn}
-                  setClient={setCurrentClient}
-                  toast={infoToast}
-                />
-              }
-            />
-          )}
-          {memberLoggedIn ? (
-            <Route
-              path="/missions/info/:id/reports/new"
-              element={
-                <NewReport
-                  mission={selectedMission}
-                  member={currentMember}
-                  toast={infoToast}
-                  onPost={addMissionReport}
-                />
-              }
-            />
-          ) : (
-            <Route
-              path="/missions/info/:id/reports/new"
-              element={
-                <MemberLogin
-                  memberLogin={memberLogin}
-                  members={members}
-                  setMember={setCurrentMemberID}
-                  setSelect={setSelectedMemberID}
-                  setLogin={setMemberLoggedIn}
-                  toast={infoToast}
-                />
-              }
-            />
-          )}
-          <Route
-            path="/account/client/login"
-            element={
-              <ClientLogin
-                clientLogin={clientLogin}
-                setLogin={setClientLoggedIn}
-                setClient={setCurrentClient}
-                toast={infoToast}
-              />
-            }
-          />
-          <Route
-            path="/account/member/login"
-            element={
-              <MemberLogin
-                memberLogin={memberLogin}
-                members={members}
-                setMember={setCurrentMemberID}
-                setSelect={setSelectedMemberID}
-                setLogin={setMemberLoggedIn}
-                toast={infoToast}
-              />
-            }
-          />
-          <Route
-            path="/account/member/info"
-            element={
-              memberLoggedIn ? (
-                <MemberDisplay
-                  member={currentMember}
-                  selectMission={setSelectedMissionID}
-                />
-              ) : (
-                <MemberLogin
-                  memberLogin={memberLogin}
-                  members={members}
-                  setMember={setCurrentMemberID}
-                  setSelect={setSelectedMemberID}
-                  setLogin={setMemberLoggedIn}
-                  toast={infoToast}
-                />
-              )
-            }
-          />
-          <Route
-            path="/account/member/info/edit"
-            element={
-              <EditMember
-                races={races}
-                specializations={specializations}
-                ranks={ranks}
-                member={currentMember}
-                members={members}
-                onEdit={editMember}
-                toast={infoToast}
-                setMember={setCurrentMemberID}
-              />
-            }
-          />
-          <Route
-            path="/register/member"
-            element={
-              <CreateMember
-                races={races}
-                specializations={specializations}
-                ranks={ranks}
-                members={members}
-                onAdd={addMember}
-                toast={infoToast}
-              />
-            }
-          />
-          <Route
-            path="/account/client/info"
-            element={
-              <ClientDisplay
-                client={currentClient}
-                missionInfo={missions}
-                handleSelect={setSelectedMissionID}
-              />
-            }
-          />
-          <Route
-            path="/register/client"
-            element={
-              <CreateClient
-                onAdd={createClient}
-                toast={infoToast}
-                clientLogin={clientLogin}
-                setLogin={setClientLoggedIn}
-                setClient={setCurrentClient}
-              />
-            }
-          />
-          <Route
-            path="/account/client/info/edit"
-            element={
-              <EditClient
-                client={currentClient}
-                toast={infoToast}
-                onEdit={editClient}
-                clientLogin={clientLogin}
-                setClient={setCurrentClient}
-              />
-            }
-          />
-        </Routes>
-      </main>
+			<main>
+				{/* <SideNav clientLogin={clientLogin} logout={clientLogout} /> */}
+				<ToastContainer />
+				<Routes>
+					<Route path="/" element={<About />}></Route>
+					<Route
+						path="/members"
+						element={
+							<Members
+								members={members}
+								handleSelect={handleSelectMember}
+								pagination={usePagination}
+							/>
+						}
+					></Route>
+					<Route
+						path="/members/info/:id"
+						// element={<MemberInfo member={selectedMember} />}
+						element={
+							<MembersInfo selectedMember={selectedMember} members={members} />
+						}
+					/>
+					<Route path="/about" element={<About />}></Route>
+					<Route
+						path="/missions/all"
+						element={
+							<MissionBoard
+								missions={missions}
+								handleSelect={handleSelectMission}
+							/>
+						}
+					/>
+					<Route
+						path="/missions/info/:id"
+						element={
+							<MissionDetail
+								mission={selectedMission}
+								members={members}
+								loginCheck={memberLoggedIn}
+								toast={infoToast}
+								clientCheck={clientLoggedIn}
+								clientInfo={currentClient}
+								handleSelectMem={handleSelectMember}
+								selectedMember={selectedMember}
+								onReportEdit={editMissionReport}
+								memberInfo={currentMemberID}
+							/>
+						}
+					/>
 
-      <Footer />
-    </Router>
-  );
+					<Route
+						path="missions/info/:id/edit"
+						element={
+							<EditMission
+								mission={selectedMission}
+								toast={infoToast}
+								onEdit={editMission}
+							/>
+						}
+					/>
+
+					{clientLoggedIn ? (
+						<Route
+							path="/missions/create"
+							element={
+								<NewMission
+									onAdd={addMission}
+									client={currentClient}
+									toast={infoToast}
+								/>
+							}
+						></Route>
+					) : (
+						<Route
+							path="/missions/create"
+							element={
+								<ClientLogin
+									clientLogin={clientLogin}
+									setLogin={setClientLoggedIn}
+									setClient={setCurrentClient}
+									toast={infoToast}
+								/>
+							}
+						/>
+					)}
+					{memberLoggedIn ? (
+						<Route
+							path="/missions/info/:id/reports/new"
+							element={
+								<NewReport
+									mission={selectedMission}
+									member={currentMember}
+									toast={infoToast}
+									onPost={addMissionReport}
+								/>
+							}
+						/>
+					) : (
+						<Route
+							path="/missions/info/:id/reports/new"
+							element={
+								<MemberLogin
+									memberLogin={memberLogin}
+									members={members}
+									setMember={setCurrentMemberID}
+									setSelect={setSelectedMemberID}
+									setLogin={setMemberLoggedIn}
+									toast={infoToast}
+								/>
+							}
+						/>
+					)}
+					<Route
+						path="/account/client/login"
+						element={
+							<ClientLogin
+								clientLogin={clientLogin}
+								setLogin={setClientLoggedIn}
+								setClient={setCurrentClient}
+								toast={infoToast}
+							/>
+						}
+					/>
+					<Route
+						path="/account/member/login"
+						element={
+							<MemberLogin
+								memberLogin={memberLogin}
+								members={members}
+								setMember={setCurrentMemberID}
+								setSelect={setSelectedMemberID}
+								setLogin={setMemberLoggedIn}
+								toast={infoToast}
+							/>
+						}
+					/>
+					<Route
+						path="/account/member/info"
+						element={
+							memberLoggedIn ? (
+								<MemberDisplay
+									member={currentMember}
+									selectMission={setSelectedMissionID}
+								/>
+							) : (
+								<MemberLogin
+									memberLogin={memberLogin}
+									members={members}
+									setMember={setCurrentMemberID}
+									setSelect={setSelectedMemberID}
+									setLogin={setMemberLoggedIn}
+									toast={infoToast}
+								/>
+							)
+						}
+					/>
+					<Route
+						path="/account/member/info/edit"
+						element={
+							<EditMember
+								races={races}
+								specializations={specializations}
+								ranks={ranks}
+								member={currentMember}
+								members={members}
+								onEdit={editMember}
+								toast={infoToast}
+								setMember={setCurrentMemberID}
+							/>
+						}
+					/>
+					<Route
+						path="/register/member"
+						element={
+							<CreateMember
+								races={races}
+								specializations={specializations}
+								ranks={ranks}
+								members={members}
+								onAdd={addMember}
+								toast={infoToast}
+							/>
+						}
+					/>
+					<Route
+						path="/account/client/info"
+						element={
+							<ClientDisplay
+								client={currentClient}
+								missionInfo={missions}
+								handleSelect={setSelectedMissionID}
+							/>
+						}
+					/>
+					<Route
+						path="/register/client"
+						element={
+							<CreateClient
+								onAdd={createClient}
+								toast={infoToast}
+								clientLogin={clientLogin}
+								setLogin={setClientLoggedIn}
+								setClient={setCurrentClient}
+							/>
+						}
+					/>
+					<Route
+						path="/account/client/info/edit"
+						element={
+							<EditClient
+								client={currentClient}
+								toast={infoToast}
+								onEdit={editClient}
+								clientLogin={clientLogin}
+								setClient={setCurrentClient}
+							/>
+						}
+					/>
+				</Routes>
+			</main>
+
+			<Footer />
+		</Router>
+	);
 }
 
 export default App;
