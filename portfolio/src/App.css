@@ -1,0 +1,108 @@
+/* Theme Variables */
+:root {
+  --pageBackground: white;
+  --backgroundColorAbout: lightblue;
+  --backgroundColorContact: white;
+  --textColorPrimary: black;
+  --navColor: rgba(27, 67, 186, 1);
+  --buttonColor: rgba(94, 139, 242, 1);
+  --backgroundColorAboutBorder: black;
+  --link-color: blue;
+  --link-color-hover: darkblue;
+  --to-top: rgba(94, 139, 242, 1);
+  --to-top-hover: rgb(73, 119, 226);
+}
+
+[data-theme="red"] {
+  --pageBackground: white;
+  --backgroundColorAbout: rgb(201, 46, 46);
+  --backgroundColorContact: white;
+  --textColorPrimary: white;
+  --navColor: rgb(186, 27, 27);
+  --buttonColor: rgb(242, 94, 94);
+  --backgroundColorAboutBorder: black;
+  --link-color: lightgrey;
+  --link-color-hover: white;
+  --to-top: rgb(242, 94, 94);
+  --to-top-hover: rgb(235, 81, 81);
+}
+
+[data-theme="green"] {
+  --pageBackground: rgb(255, 255, 255);
+  --backgroundColorAbout: rgba(85, 126, 75, 0.747);
+  --backgroundColorContact: white;
+  --textColorPrimary: black;
+  --navColor: rgb(73, 131, 58);
+  --buttonColor: #45b3f1;
+  --backgroundColorAboutBorder: black;
+  --link-color: blue;
+  --link-color-hover: darkblue;
+  --to-top: #45b3f1;
+  --to-top-hover: #34abf0;
+}
+
+[data-theme="dark"] {
+  --pageBackground: rgb(41, 41, 41);
+  --backgroundColorAbout: rgb(48, 47, 47);
+  --backgroundColorContact: white;
+  --textColorPrimary: white;
+  --navColor: rgb(24, 21, 21);
+  --buttonColor: rgb(85, 84, 84);
+  --backgroundColorAboutBorder: black;
+  --link-color: lightblue;
+  --link-color-hover: blue;
+  --to-top: rgb(85, 84, 84);
+  --to-top-hover: rgb(65, 64, 64);
+}
+
+/* App CSS */
+hr {
+  margin: 0px;
+}
+
+html {
+  background: var(--pageBackground);
+}
+
+#root {
+  background: var(--pageBackground);
+}
+
+html,
+body,
+#root {
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  position: relative;
+  font-size: 12pt;
+}
+
+/* Nav Bar */
+.navbar-portfolio {
+  background-color: var(--navColor);
+  color: white;
+  border-bottom: 1px solid var(--backgroundColorAboutBorder);
+  box-shadow: 0 5px 20px rgb(104, 104, 104);
+}
+
+.navbar-portfolio a:hover,
+.navbar-portfolio a:focus {
+  color: white;
+}
+
+.navbar-portfolio a,
+.navbar-portfolio a:hover {
+  color: white;
+}
+
+.navbar-toggler-icon {
+  border: 1px solid white;
+  /* background-color: rgb(43, 144, 226); */
+}

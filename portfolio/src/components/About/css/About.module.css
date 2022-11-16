@@ -1,0 +1,57 @@
+/* About Page */
+
+.aboutPage {
+  background-color: var(--backgroundColorAbout);
+  color: var(--textColorPrimary);
+  margin: auto 12.5%;
+  padding: 30px 10px 10px 10px;
+  border-radius: 2px;
+  border: 2px solid var(--backgroundColorAboutBorder);
+  border-top: none;
+  /* position: absolute; */
+  top: 0px;
+}
+
+.aboutPage h2 {
+  text-align: center;
+}
+
+/* Grid CSS */
+
+.introContainer {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  column-gap: 1%;
+}
+
+.about {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.photo {
+  grid-column: 1;
+  padding-right: 1%;
+  /* grid-row: span 2; */
+}
+
+@media only screen and (max-width: 884px) {
+  .introContainer {
+    grid-template-columns: 1fr;
+  }
+  .about {
+    grid-column: 1;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .aboutPage {
+    margin: auto 7.5%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .aboutPage {
+    margin: auto 5%;
+  }
+}
