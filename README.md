@@ -1,10 +1,10 @@
 # Portfolio
 
-A place to show off pieces of work that I am particularly proud of. Most of these pieces were created because I wanted to try to learn something new!
+This repository is a place to show off pieces of work that I am particularly proud of. Most of these pieces were created as part of school projects, or simply because I wanted to try something all on my own.
 
 ## Portfolio Page
 
-My first official webpage! I have put this online using a combination of AWS Route 53, AWS ACM, an EC2 instance, an S3 bucket, and AWS Amplify!
+My first official webpage. I put this online using a combination of AWS Route 53, AWS ACM, an EC2 instance, an S3 bucket, and AWS Amplify. This site is an excellent showcase of my ability to learn and implement cloud-based features using AWS, as well as my skills with React development.
 
 ## Guild Page
 
