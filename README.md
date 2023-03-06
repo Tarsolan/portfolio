@@ -2,14 +2,6 @@
 
 This repository is a place to show off pieces of work that I am particularly proud of. Most of these pieces were created as part of school projects, or simply because I wanted to try something all on my own.
 
-## Portfolio Page
-
-My first official webpage. I put this online using a combination of AWS Route 53, AWS ACM, an EC2 instance, an S3 bucket, and AWS Amplify. This site is an excellent showcase of my ability to learn and implement cloud-based features using AWS, as well as my skills with React development.
-
-## Guild Page
-
-I had fun with this one. This was my attempt at building a full MERN stack website. The front end is built with React, and the back end creates and uses a REST API with Node and Express, taking advantage of both MongoDB and PostgreSQL databases, with the ability for members and clients to log in seperately. Next phase of this will be adding proper security authentication to the logins! Eventually will properly put this online.
-
 ## Flower Shop
 
 The final sprint project for Semester 2 of the Software Development program. We had to create a storefront in the form of a React App. This was my first time implementing any sort of log in/log out authentication.
