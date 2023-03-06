@@ -1,6 +1,6 @@
 # Portfolio
 
-This repository is a place to show off pieces of work that I am particularly proud of. Most of these pieces were created as part of school projects, or simply because I wanted to try something all on my own.
+This repository is a place to show off pieces of work that I spent time working on and am at least somewhat proud of. Most of these pieces were created as part of school projects, or simply because I wanted to try something all on my own. My major projects are all located in their own repositories on my main page!
 
 ## Flower Shop
 
